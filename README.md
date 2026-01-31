@@ -1,4 +1,4 @@
- Homicidios Ecuador (2021–2025) — Análisis y Pronóstico Semanal (ARIMA | Holt-Winters | LSTM)
+# Homicidios Ecuador (2021–2025) — Análisis y Pronóstico Semanal (ARIMA | Holt-Winters | LSTM)
 
 Este repositorio contiene un pipeline en **Python (Google Colab/Jupyter)** para el análisis de la serie temporal de **homicidios intencionales en Ecuador**, agregada a frecuencia **semanal (W-SUN)**. Incluye:
 
@@ -16,7 +16,7 @@ Este repositorio contiene un pipeline en **Python (Google Colab/Jupyter)** para 
 
 - `Muestra.xlsx`: archivo de referencia para alinear el esquema (columnas) del dataset.
 - `mdi_homicidios_intencionales_pm_2014_2024.xlsx`: dataset histórico (2014–2024).
-- `mdi_homicidiosintencionalse_pm_2025_enero_octubre.xlsx`: dataset 2025 (enero–octubre).
+- `mdi_homicidiosintencionalese_pm_2025_enero_octubre.xlsx`: dataset 2025 (enero–octubre).
 - Notebook(s) de análisis (Colab/Jupyter) con:
   - Pruebas de estacionariedad
   - Visualizaciones
@@ -31,73 +31,84 @@ Este repositorio contiene un pipeline en **Python (Google Colab/Jupyter)** para 
 ## 🚀 Requerimientos
 
 Se recomienda crear un entorno virtual:
-
 ```bash
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
+
 Instala dependencias:
-
+```bash
 pip install -r requirements.txt
-Si no tienes requirements.txt, instala manualmente:
+```
 
+Si no tienes `requirements.txt`, instala manualmente:
+```bash
 pip install numpy pandas matplotlib openpyxl statsmodels scikit-learn tensorflow pmdarima tbats
-▶️ Cómo ejecutar el proyecto
-1) Ejecutar en Google Colab (recomendado)
-Abre el notebook en Colab.
+```
 
-Sube los archivos Excel cuando el notebook lo solicite:
+---
 
-Muestra.xlsx
+## ▶️ Cómo ejecutar el proyecto
 
-mdi_homicidios_intencionales_pm_2014_2024.xlsx
+### 1) Ejecutar en Google Colab (recomendado)
 
-mdi_homicidiosintencionalse_pm_2025_enero_octubre.xlsx
+1. Abre el notebook en Colab.
+2. Sube los archivos Excel cuando el notebook lo solicite:
+   - `Muestra.xlsx`
+   - `mdi_homicidios_intencionales_pm_2014_2024.xlsx`
+   - `mdi_homicidiosintencionalese_pm_2025_enero_octubre.xlsx`
+3. Ejecuta las celdas en orden.
+4. El pipeline generará:
+   - Tablas de métricas (RMSE, MAE, MAPE)
+   - Gráficos (real vs predicho, residuales, etc.)
+   - Archivo `pronostico_semanal_2026_2030.csv`
 
-Ejecuta las celdas en orden.
+### 2) Ejecutar en local con Jupyter
 
-El pipeline generará:
+1. Abre el notebook:
+```bash
+   jupyter notebook
+```
+2. Ejecuta el notebook paso a paso asegurando que los Excel estén en el mismo directorio (o ajustando rutas).
 
-Tablas de métricas (RMSE, MAE, MAPE)
+---
 
-Gráficos (real vs predicho, residuales, etc.)
+## 📊 Resultado esperado
 
-Archivo pronostico_semanal_2026_2030.csv
+- **Series semanales (W-SUN)** para:
+  - Total país
+  - Provincia: Guayas
+  - Cantón: Guayaquil
+  
+- **Evaluación comparativa de modelos** (ARIMA, Holt-Winters, LSTM) con métricas:
+  - RMSE
+  - MAE
+  - MAPE
+  
+- **Rolling forecast** con ventana de entrenamiento fija de 26 semanas
 
-2) Ejecutar en local con Jupyter
-Abre el notebook:
+- **Pronóstico semanal hasta 2030** (mejor modelo por nivel)
 
-jupyter notebook
-Ejecuta el notebook paso a paso asegurando que los Excel estén en el mismo directorio (o ajustando rutas).
+- **Exportación de resultados**:
+  - `pronostico_semanal_2026_2030.csv`
 
-📊 Resultado esperado
-Series semanales (W-SUN) para:
+---
 
-Total país
+## 📌 Notas adicionales
 
-Provincia: Guayas
+- El análisis trabaja con frecuencia semanal **W-SUN** (semanas cerradas en domingo).
+- El periodo principal de modelado está filtrado a **2021–2025**.
+- En cantón, se contempla que el dataset pueda contener **GUAYAQUIL** o **GUAYQUIL**.
+- Si el mejor modelo seleccionado fuera ARIMA para el bloque de proyección a 2030, el notebook lanza una excepción (ese bloque no incluye ARIMA por defecto).
 
-Cantón: Guayaquil
 
-Evaluación comparativa de modelos (ARIMA, Holt-Winters, LSTM) con métricas:
 
-RMSE
 
-MAE
 
-MAPE
 
-Rolling forecast con ventana de entrenamiento fija de 26 semanas
 
-Pronóstico semanal hasta 2030 (mejor modelo por nivel)
 
-Exportación de resultados:
 
-pronostico_semanal_2026_2030.csv
-📌 Notas adicionales
-El análisis trabaja con frecuencia semanal W-SUN (semanas cerradas en domingo).
 
-El periodo principal de modelado está filtrado a 2021–2025.
 
-En cantón, se contempla que el dataset pueda contener GUAYAQUIL o GUAYQUIL.
 
-Si el mejor modelo seleccionado fuera ARIMA para el bloque de proyección a 2030, el notebook lanza una excepción (ese bloque no incluye ARIMA por defecto).
